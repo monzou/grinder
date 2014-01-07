@@ -1,0 +1,6 @@
+language: java
+
+jdk:
+  - openjdk7
+
+script: "cd grinder-build && chmod +x gradlew && ./gradlew clean build"

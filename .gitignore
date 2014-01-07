@@ -1,0 +1,6 @@
+*.checkstyle
+*.metadata
+*.classpath
+*.project
+RemoteSystemsTempFiles
+maven-repository

@@ -29,9 +29,9 @@ public class GrinderTest extends AptinaTestCase {
     public void testGrinder2() throws Exception {
         addProcessor(new Grinder());
         addCompilationUnit(TradeBean.class);
-        addOption(String.format("-A%s=test.meta", Options.PACKAGE));
+        addOption(String.format("-A%s=test.meta", Options.PACKAGE), String.format("-A%s=M", Options.CLASS_PREFIX));
         compile();
-        assertEqualsGeneratedSourceWithResource("com/github/monzou/grinder/annotation/processor/Grinder2.expected", "test.meta.TradeBeanMeta");
+        assertEqualsGeneratedSourceWithResource("com/github/monzou/grinder/annotation/processor/Grinder2.expected", "test.meta.MTradeBean");
     }
 
     public void testGrinder3() throws Exception {

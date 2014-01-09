@@ -9,6 +9,8 @@ final class Options {
 
     static final String PACKAGE_SUFFIX = "com.github.monzou.grinder.annotation.processor.package.suffix";
 
+    static final String CLASS_PREFIX = "com.github.monzou.grinder.annotation.processor.class.prefix";
+
     static final String CLASS_SUFFIX = "com.github.monzou.grinder.annotation.processor.class.suffix";
 
     private Options() {

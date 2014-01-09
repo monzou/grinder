@@ -219,6 +219,22 @@ public class Grinder extends AbstractProcessor {
         return repository;
 
     }
+    
+    private String toMetaClassName(String baseName) {
+        String prefix = optionOf(Options.CLASS_PREFIX, null);
+        String suffix = optionOf(Options.CLASS_SUFFIX, null);
+        if (prefix == null && suffix == null) {
+            suffix = "Meta";
+        }
+        String className = baseName;
+        if (prefix != null) {
+            className = String.format("%s%s", prefix, className);
+        }
+        if (suffix != null) {
+            className = String.format("%s%s", className, suffix);
+        }
+        return className;
+    }
 
     private void generateMetaClass(TypeElement element, RoundEnvironment roundEnv) {
 
@@ -230,7 +246,7 @@ public class Grinder extends AbstractProcessor {
             String suffix = optionOf(Options.PACKAGE_SUFFIX, "meta");
             pkg = pkg == null || pkg.trim().length() == 0 ? suffix : String.format("%s.%s", pkg, suffix);
         }
-        String className = String.format("%s%s", beanClassName, optionOf(Options.CLASS_SUFFIX, "Meta"));
+        String className = toMetaClassName(beanClassName);
         String fqn = String.format("%s.%s", pkg, className);
 
         debug("Generate meta class by grinder: bean=%s,  meta=%s", classNameOf(element), fqn);

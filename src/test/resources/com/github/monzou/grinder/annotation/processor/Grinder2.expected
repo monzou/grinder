@@ -4,9 +4,9 @@ package test.meta;
 import com.github.monzou.grinder.annotation.processor.TradeBean;
 
 /**
- * TradeBeanMeta
+ * MTradeBean
  */
-public class TradeBeanMeta {
+public class MTradeBean {
 
     /** tradeNo */
     public static final com.github.monzou.grinder.BeanProperty<TradeBean, java.lang.String> tradeNo = new com.github.monzou.grinder.BeanProperty<TradeBean, java.lang.String>() {

@@ -1,0 +1,90 @@
+apply from: "version.gradle"
+
+apply plugin: "java"
+apply plugin: "checkstyle"
+apply plugin: "findbugs"
+apply plugin: "maven"
+
+sourceCompatibility = jdkVersion
+targetCompatibility = jdkVersion
+
+repositories {
+    mavenCentral()
+    maven {
+        url "http://maven.seasar.org/maven2/"
+    }
+}
+
+dependencies {
+    compile guava
+    testCompile junit
+    testCompile hamcrestAll
+    testCompile aptinaUnit
+}
+
+def defaultEncoding = "UTF-8"
+compileJava {
+    options.encoding = defaultEncoding
+}
+compileTestJava {
+    options.encoding = defaultEncoding
+}
+
+jar {
+    manifest.attributes provider: provider
+    manifest.attributes "Implementation-Title": project.name
+    manifest.attributes "Implementation-Version": version
+    from "../LICENSE"
+}
+
+test {
+    exclude "**/*Base.class"
+    exclude "**/Abstract*.class"
+    exclude "**/Mock*.class"
+}
+
+def configDir = new File(buildscript.sourceFile.parentFile, configurationDir)
+checkstyle {
+    configFile = new File(configDir, "checkstyle.xml")
+    configProperties.checkstyleConfigurationDir = configDir
+}
+
+findbugs {
+    excludeFilter = file("${configDir}/findbugs-excludeFilter.xml")
+}
+[ findbugs, findbugsTest ]*.ignoreFailures = true
+
+
+task sourcesJar(type: Jar, dependsOn:classes) {
+    classifier = "sources"
+    from sourceSets.main.allSource
+}
+
+artifacts {
+    archives sourcesJar
+}
+
+def releaseDir = file(releaseRepositoryDir).absolutePath
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository url: "file://${releaseDir}"
+            pom.version = version
+            pom.groupId = groupId
+            pom.artifactId = project.name
+            pom.project {
+                licenses {
+                    license {
+                        name "The MIT License"
+                        url "http://opensource.org/licenses/mit-license"
+                        distribution "repo"
+                    }
+                }
+            }
+        }
+    }
+}
+
+task wrapper(type: Wrapper) {
+    gradleVeresion = "1.8"
+}

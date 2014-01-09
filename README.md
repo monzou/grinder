@@ -10,7 +10,6 @@ Grinder provides bean property accessors by APT.
 
 1. Add Maven repository: http://monzou.github.com/maven-repository/
 2. Add dependency: com.github.monzou:grinder:${version}
-3. Add dependency: com.github.monzou:grinder-generator:${version}
 
 Configuration example for Gradle:
 
@@ -20,12 +19,8 @@ repositories {
         url "http://monzou.github.com/maven-repository/"
     }
 }
-configurations {
-    apt
-}
 dependencies {
     compile "com.github.monzou:grinder:${version}"
-    apt "com.github.monzou:grinder-generator:${version}"
 }
 ```
 
@@ -46,7 +41,7 @@ public class Trade implements Serializable {
 }
 ```
 
-```grinder-generator``` generates bean meta classes:
+Grinder generates bean meta classes:
 
 ```java
 public class TradeBeanMeta {
@@ -88,7 +83,7 @@ List<String> tradeNos = FluentIterable.from(trades).transform(TradeMeta.tradeNo)
 
 ## Configuration
 
-Just configure ```grinder-generator``` as an annotation processor.
+Just configure ```grinder``` as an annotation processor.
 For example, if you use Eclipse and Gradle, configure ```build.gradle``` like following:
 
 ```groovy
@@ -106,7 +101,7 @@ sourceSets {
 }
 
 dependencies {
-    apt "com.github.monzou:grinder-generator:${grinderVersion}"
+    apt "com.github.monzou:grinder:${grinderVersion}"
 }
 
 task compileAptJava(overwrite: true, dependsOn: clean)  {
@@ -150,7 +145,7 @@ def writeFactorySettings() {
     xml.setDoubleQuotes(true)
     xml."factorypath"() {
         "factorypathentry"(kind: "PLUGIN", id: "org.eclipse.jst.ws.annotations.core", enabled: true, runInBatchMode: false)
-        "factorypathentry"(kind: "WKSPJAR", id: "/${project.name}/${eclipseProcessorDir}/grinder-generator-${grinderVersion}.jar", enabled: true, runInBatchMode: false)
+        "factorypathentry"(kind: "WKSPJAR", id: "/${project.name}/${eclipseProcessorDir}/grinder-${grinderVersion}.jar", enabled: true, runInBatchMode: false)
     }
     writer.close()
 }

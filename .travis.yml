@@ -1,6 +1,8 @@
 language: java
-
 jdk:
   - openjdk7
 
-script: "cd grinder-build && chmod +x gradlew && ./gradlew clean build"
+before_install:
+  - chmod +x gradlew
+
+script: "./gradlew clean build"

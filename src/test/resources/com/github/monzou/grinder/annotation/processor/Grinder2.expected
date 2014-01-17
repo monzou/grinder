@@ -128,6 +128,23 @@ public class MTradeBean {
 
     };
 
+    /** readonly */
+    public static final com.github.monzou.grinder.BeanPropertyAccessor<TradeBean, java.lang.String> readonly = new com.github.monzou.grinder.BeanPropertyAccessor<TradeBean, java.lang.String>() {
+
+        /** {@inheritDoc} */
+        @Override
+        public java.lang.String getName() {
+            return "readonly";
+        }
+
+        /** {@inheritDoc} */
+        @Override
+        public java.lang.String apply(TradeBean bean) {
+            return bean.getReadonly();
+        }
+
+    };
+
     /** tradeNoAndStatus */
     public static final com.github.monzou.grinder.BeanPropertyAccessor<TradeBean, java.lang.String> tradeNoAndStatus = new com.github.monzou.grinder.BeanPropertyAccessor<TradeBean, java.lang.String>() {
 

@@ -15,13 +15,13 @@ public class TradeBean implements Serializable {
     /** Status */
     public static enum Status {
         /** Plan */
-        PLAN, 
+        PLAN,
         /** Authorized */
         AUTHORIZED;
     }
-    
+
     /** Const **/
-    public static final String CONST = "foo"; 
+    public static final String CONST = "foo";
 
     private String tradeNo;
 
@@ -32,29 +32,36 @@ public class TradeBean implements Serializable {
     private boolean deleted;
 
     private Boolean flag;
-    
+
+    private final String readonly = "readonly";
+
     // getter only
     public String getTradeNoAndStatus() {
         return String.format("%s%s", getTradeNo(), getStatus().toString());
     }
-    
+
     // virtual property
     public String getFoo() {
         return tradeNo;
     }
-    
+
     public void setFoo(String foo) {
         this.tradeNo = foo;
     }
-    
+
     // setter only
     public void setBar(String bar) {
         this.tradeNo = bar;
     }
-    
+
     // method
     public String calculateBaz() {
         return tradeNo;
+    }
+
+    // read only
+    public String getReadonly() {
+        return readonly;
     }
 
     public String getTradeNo() {

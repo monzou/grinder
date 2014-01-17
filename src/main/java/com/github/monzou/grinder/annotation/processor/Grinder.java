@@ -78,7 +78,7 @@ public class Grinder extends AbstractProcessor {
 
         String getName();
 
-        boolean isProperty();
+        boolean canWrite();
 
     }
 
@@ -110,8 +110,8 @@ public class Grinder extends AbstractProcessor {
 
         /** {@inheritDoc} */
         @Override
-        public boolean isProperty() {
-            return true;
+        public boolean canWrite() {
+            return !element.getModifiers().contains(Modifier.FINAL);
         }
 
     }
@@ -162,7 +162,7 @@ public class Grinder extends AbstractProcessor {
 
         /** {@inheritDoc} */
         @Override
-        public boolean isProperty() {
+        public boolean canWrite() {
             return getMethodName().startsWith("set");
         }
 
@@ -219,7 +219,7 @@ public class Grinder extends AbstractProcessor {
         return repository;
 
     }
-    
+
     private String toMetaClassName(String baseName) {
         String prefix = optionOf(Options.CLASS_PREFIX, null);
         String suffix = optionOf(Options.CLASS_SUFFIX, null);
@@ -290,7 +290,7 @@ public class Grinder extends AbstractProcessor {
 
             String propertyType = metaData.getWrappedType();
             String propertyName = metaData.getName();
-            String className = metaData.isProperty() ? BeanProperty.class.getName() : BeanPropertyAccessor.class.getName();
+            String className = metaData.canWrite() ? BeanProperty.class.getName() : BeanPropertyAccessor.class.getName();
             String typedClassName = String.format("%s<%s, %s>", className, beanName, propertyType);
 
             w.println("    /** %s */", propertyName);
@@ -308,7 +308,7 @@ public class Grinder extends AbstractProcessor {
             w.println("            return bean.%s();", toGetterName(metaData.getType(), propertyName));
             w.println("        }");
             w.println();
-            if (metaData.isProperty()) {
+            if (metaData.canWrite()) {
                 w.println("        /** {@inheritDoc} */");
                 w.println("        @Override");
                 w.println("        public %s apply(%s bean, %s %s) {", beanName, beanName, propertyType, propertyName);

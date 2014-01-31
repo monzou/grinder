@@ -26,7 +26,11 @@ import javax.tools.JavaFileObject;
 
 import com.github.monzou.grinder.BeanProperty;
 import com.github.monzou.grinder.BeanPropertyAccessor;
+import com.google.common.base.Predicate;
+import com.google.common.base.Predicates;
 import com.google.common.base.Strings;
+import com.google.common.collect.Collections2;
+import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 
 /**
@@ -71,6 +75,13 @@ public class Grinder extends AbstractProcessor {
     }
 
     private interface PropertyMetaData {
+
+        static Predicate<PropertyMetaData> PROPERTY = new Predicate<Grinder.PropertyMetaData>() {
+            @Override
+            public boolean apply(PropertyMetaData input) {
+                return input.canWrite();
+            }
+        };
 
         String getWrappedType();
 
@@ -257,16 +268,21 @@ public class Grinder extends AbstractProcessor {
                 w.println("package %s;", pkg);
                 w.println();
                 w.println("//CHECKSTYLE:OFF");
+                w.println("import %s;", Map.class.getName());
+                w.println();
+                w.println("import %s;", BeanProperty.class.getName());
+                w.println("import %s;", BeanPropertyAccessor.class.getName());
                 w.println("import %s;", classNameOf(element));
+                w.println("import %s;", ImmutableMap.class.getName());
+                w.println("import %s;", ImmutableMap.Builder.class.getName().replaceAll("\\$", "."));
                 w.println();
                 w.println("/**");
                 w.println(" * %s", className);
                 w.println(" */");
                 w.println("public class %s {", className);
                 w.println();
-                for (PropertyMetaData metaData : repository.values()) {
-                    new PropertyWriter(beanClassName).write(w, metaData);
-                }
+                new PropertyWriter(beanClassName).write(w, repository);
+                new AccessorsWriter(beanClassName).write(w, repository);
                 w.println("}");
                 w.flush();
             } catch (Exception e) { // SUPPRESS CHECKSTYLE
@@ -286,42 +302,102 @@ public class Grinder extends AbstractProcessor {
             this.beanName = beanName;
         }
 
-        void write(SourceWriter w, PropertyMetaData metaData) {
+        void write(SourceWriter w, Map<String, PropertyMetaData> repository) {
 
-            String propertyType = metaData.getWrappedType();
-            String propertyName = metaData.getName();
-            String className = metaData.canWrite() ? BeanProperty.class.getName() : BeanPropertyAccessor.class.getName();
-            String typedClassName = String.format("%s<%s, %s>", className, beanName, propertyType);
+            for (PropertyMetaData metaData : repository.values()) {
 
-            w.println("    /** %s */", propertyName);
-            w.println("    public static final %s %s = new %s() {", typedClassName, propertyName, typedClassName);
-            w.println();
-            w.println("        /** {@inheritDoc} */");
-            w.println("        @Override");
-            w.println("        public java.lang.String getName() {");
-            w.println("            return \"%s\";", propertyName);
-            w.println("        }");
-            w.println();
-            w.println("        /** {@inheritDoc} */");
-            w.println("        @Override");
-            w.println("        public %s apply(%s bean) {", propertyType, beanName);
-            w.println("            return bean.%s();", toGetterName(metaData.getType(), propertyName));
-            w.println("        }");
-            w.println();
-            if (metaData.canWrite()) {
+                String propertyType = metaData.getWrappedType();
+                String propertyName = metaData.getName();
+                String className = metaData.canWrite() ? BeanProperty.class.getSimpleName() : BeanPropertyAccessor.class.getSimpleName();
+                String typedClassName = String.format("%s<%s, %s>", className, beanName, propertyType);
+
+                w.println("    /** %s */", propertyName);
+                w.println("    public static final %s %s = new %s() {", typedClassName, propertyName, typedClassName);
+                w.println();
                 w.println("        /** {@inheritDoc} */");
                 w.println("        @Override");
-                w.println("        public %s apply(%s bean, %s %s) {", beanName, beanName, propertyType, propertyName);
-                w.println("            bean.%s(%s);", toSetterName(propertyName), propertyName);
-                w.println("            return bean;");
+                w.println("        public java.lang.String getName() {");
+                w.println("            return \"%s\";", propertyName);
                 w.println("        }");
                 w.println();
+                w.println("        /** {@inheritDoc} */");
+                w.println("        @Override");
+                w.println("        public %s apply(%s bean) {", propertyType, beanName);
+                w.println("            return bean.%s();", toGetterName(metaData.getType(), propertyName));
+                w.println("        }");
+                w.println();
+                if (metaData.canWrite()) {
+                    w.println("        /** {@inheritDoc} */");
+                    w.println("        @Override");
+                    w.println("        public %s apply(%s bean, %s %s) {", beanName, beanName, propertyType, propertyName);
+                    w.println("            bean.%s(%s);", toSetterName(propertyName), propertyName);
+                    w.println("            return bean;");
+                    w.println("        }");
+                    w.println();
+                }
+                w.println("    };");
+                w.println();
+
             }
-            w.println("    };");
-            w.println();
 
         }
 
+    }
+
+    private static class AccessorsWriter {
+
+        private final String beanName;
+
+        AccessorsWriter(String beanName) {
+            this.beanName = beanName;
+        }
+
+        void write(SourceWriter w, Map<String, PropertyMetaData> repository) {
+            w.println("    private static final Map<String, BeanProperty<? super %s, ?>> properties;", beanName);
+            w.println();
+            w.println("    private static final Map<String, BeanPropertyAccessor<? super %s, ?>> propertyAccessors;", beanName);
+            w.println();
+            w.println("    static {");
+            w.println();
+            w.println("        Builder<String, BeanProperty<? super %s, ?>> propertiesBuilder = ImmutableMap.builder();", beanName);
+            for (PropertyMetaData property : Collections2.filter(repository.values(), PropertyMetaData.PROPERTY)) {
+                w.println("        propertiesBuilder.put(\"%s\", %s);", property.getName(), property.getName());
+            }
+            w.println("        properties = propertiesBuilder.build();");
+            w.println();
+            w.println("        Builder<String, BeanPropertyAccessor<? super %s, ?>> propertyAccessorsBuilder = ImmutableMap.builder();", beanName);
+            for (PropertyMetaData property : Collections2.filter(repository.values(), Predicates.not(PropertyMetaData.PROPERTY))) {
+                w.println("        propertyAccessorsBuilder.put(\"%s\", %s);", property.getName(), property.getName());
+            }
+            w.println("        propertyAccessors = propertyAccessorsBuilder.build();");
+            w.println();
+            w.println("    }");
+            w.println();
+            w.println("    /**");
+            w.println("     * Get the bean property by name");
+            w.println("     * ");
+            w.println("     * @param propertyName property name");
+            w.println("     * @return {@link BeanProperty}");
+            w.println("     */");
+            w.println("    public static BeanProperty<? super %s, ?> getProperty(String propertyName) {", beanName);
+            w.println("        return properties.get(propertyName);");
+            w.println("    }");
+            w.println();
+            w.println("    /**");
+            w.println("     * Get the bean property accessor by name");
+            w.println("     * ");
+            w.println("     * @param propertyName property name");
+            w.println("     * @return {@link BeanPropertyAccessor}");
+            w.println("     */");
+            w.println("    public static BeanPropertyAccessor<? super %s, ?> getPropertyAccessor(String propertyName) {", beanName);
+            w.println("        BeanPropertyAccessor<? super %s,?> property = getProperty(propertyName);", beanName);
+            w.println("        if (property == null) {");
+            w.println("            property = propertyAccessors.get(propertyName);");
+            w.println("        }");
+            w.println("        return property;");
+            w.println("    }");
+            w.println();
+        }
     }
 
     private void debug(String format, Object... args) {

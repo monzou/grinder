@@ -1,7 +1,13 @@
 package test.meta;
 
 //CHECKSTYLE:OFF
+import java.util.Map;
+
+import com.github.monzou.grinder.BeanProperty;
+import com.github.monzou.grinder.BeanPropertyAccessor;
 import com.github.monzou.grinder.annotation.processor.TradeBean;
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableMap.Builder;
 
 /**
  * MTradeBean
@@ -9,7 +15,7 @@ import com.github.monzou.grinder.annotation.processor.TradeBean;
 public class MTradeBean {
 
     /** tradeNo */
-    public static final com.github.monzou.grinder.BeanProperty<TradeBean, java.lang.String> tradeNo = new com.github.monzou.grinder.BeanProperty<TradeBean, java.lang.String>() {
+    public static final BeanProperty<TradeBean, java.lang.String> tradeNo = new BeanProperty<TradeBean, java.lang.String>() {
 
         /** {@inheritDoc} */
         @Override
@@ -33,7 +39,7 @@ public class MTradeBean {
     };
 
     /** status */
-    public static final com.github.monzou.grinder.BeanProperty<TradeBean, com.github.monzou.grinder.annotation.processor.TradeBean.Status> status = new com.github.monzou.grinder.BeanProperty<TradeBean, com.github.monzou.grinder.annotation.processor.TradeBean.Status>() {
+    public static final BeanProperty<TradeBean, com.github.monzou.grinder.annotation.processor.TradeBean.Status> status = new BeanProperty<TradeBean, com.github.monzou.grinder.annotation.processor.TradeBean.Status>() {
 
         /** {@inheritDoc} */
         @Override
@@ -57,7 +63,7 @@ public class MTradeBean {
     };
 
     /** version */
-    public static final com.github.monzou.grinder.BeanProperty<TradeBean, java.lang.Long> version = new com.github.monzou.grinder.BeanProperty<TradeBean, java.lang.Long>() {
+    public static final BeanProperty<TradeBean, java.lang.Long> version = new BeanProperty<TradeBean, java.lang.Long>() {
 
         /** {@inheritDoc} */
         @Override
@@ -81,7 +87,7 @@ public class MTradeBean {
     };
 
     /** deleted */
-    public static final com.github.monzou.grinder.BeanProperty<TradeBean, java.lang.Boolean> deleted = new com.github.monzou.grinder.BeanProperty<TradeBean, java.lang.Boolean>() {
+    public static final BeanProperty<TradeBean, java.lang.Boolean> deleted = new BeanProperty<TradeBean, java.lang.Boolean>() {
 
         /** {@inheritDoc} */
         @Override
@@ -105,7 +111,7 @@ public class MTradeBean {
     };
 
     /** flag */
-    public static final com.github.monzou.grinder.BeanProperty<TradeBean, java.lang.Boolean> flag = new com.github.monzou.grinder.BeanProperty<TradeBean, java.lang.Boolean>() {
+    public static final BeanProperty<TradeBean, java.lang.Boolean> flag = new BeanProperty<TradeBean, java.lang.Boolean>() {
 
         /** {@inheritDoc} */
         @Override
@@ -129,7 +135,7 @@ public class MTradeBean {
     };
 
     /** readonly */
-    public static final com.github.monzou.grinder.BeanPropertyAccessor<TradeBean, java.lang.String> readonly = new com.github.monzou.grinder.BeanPropertyAccessor<TradeBean, java.lang.String>() {
+    public static final BeanPropertyAccessor<TradeBean, java.lang.String> readonly = new BeanPropertyAccessor<TradeBean, java.lang.String>() {
 
         /** {@inheritDoc} */
         @Override
@@ -146,7 +152,7 @@ public class MTradeBean {
     };
 
     /** tradeNoAndStatus */
-    public static final com.github.monzou.grinder.BeanPropertyAccessor<TradeBean, java.lang.String> tradeNoAndStatus = new com.github.monzou.grinder.BeanPropertyAccessor<TradeBean, java.lang.String>() {
+    public static final BeanPropertyAccessor<TradeBean, java.lang.String> tradeNoAndStatus = new BeanPropertyAccessor<TradeBean, java.lang.String>() {
 
         /** {@inheritDoc} */
         @Override
@@ -163,7 +169,7 @@ public class MTradeBean {
     };
 
     /** foo */
-    public static final com.github.monzou.grinder.BeanProperty<TradeBean, java.lang.String> foo = new com.github.monzou.grinder.BeanProperty<TradeBean, java.lang.String>() {
+    public static final BeanProperty<TradeBean, java.lang.String> foo = new BeanProperty<TradeBean, java.lang.String>() {
 
         /** {@inheritDoc} */
         @Override
@@ -185,5 +191,51 @@ public class MTradeBean {
         }
 
     };
+
+    private static final Map<String, BeanProperty<? super TradeBean, ?>> properties;
+
+    private static final Map<String, BeanPropertyAccessor<? super TradeBean, ?>> propertyAccessors;
+
+    static {
+
+        Builder<String, BeanProperty<? super TradeBean, ?>> propertiesBuilder = ImmutableMap.builder();
+        propertiesBuilder.put("tradeNo", tradeNo);
+        propertiesBuilder.put("status", status);
+        propertiesBuilder.put("version", version);
+        propertiesBuilder.put("deleted", deleted);
+        propertiesBuilder.put("flag", flag);
+        propertiesBuilder.put("foo", foo);
+        properties = propertiesBuilder.build();
+
+        Builder<String, BeanPropertyAccessor<? super TradeBean, ?>> propertyAccessorsBuilder = ImmutableMap.builder();
+        propertyAccessorsBuilder.put("readonly", readonly);
+        propertyAccessorsBuilder.put("tradeNoAndStatus", tradeNoAndStatus);
+        propertyAccessors = propertyAccessorsBuilder.build();
+
+    }
+
+    /**
+     * Get the bean property by name
+     * 
+     * @param propertyName property name
+     * @return {@link BeanProperty}
+     */
+    public static BeanProperty<? super TradeBean, ?> getProperty(String propertyName) {
+        return properties.get(propertyName);
+    }
+
+    /**
+     * Get the bean property accessor by name
+     * 
+     * @param propertyName property name
+     * @return {@link BeanPropertyAccessor}
+     */
+    public static BeanPropertyAccessor<? super TradeBean, ?> getPropertyAccessor(String propertyName) {
+        BeanPropertyAccessor<? super TradeBean,?> property = getProperty(propertyName);
+        if (property == null) {
+            property = propertyAccessors.get(propertyName);
+        }
+        return property;
+    }
 
 }

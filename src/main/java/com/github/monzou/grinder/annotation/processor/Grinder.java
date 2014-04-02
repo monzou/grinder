@@ -384,7 +384,7 @@ public class Grinder extends AbstractProcessor {
             w.println("    public static List<BeanProperty<? super %s, ?>> getProperties() {", beanName);
             w.println("        return ImmutableList.copyOf(properties.values());");
             w.println("    }");
-            w.println("    ");
+            w.println();
             w.println("    /**");
             w.println("     * Get all property accessors");
             w.println("     * ");

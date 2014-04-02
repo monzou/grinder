@@ -224,7 +224,7 @@ public class TradeBeanFoo {
     public static List<BeanProperty<? super TradeBean, ?>> getProperties() {
         return ImmutableList.copyOf(properties.values());
     }
-    
+
     /**
      * Get all property accessors
      * 

@@ -1,11 +1,13 @@
 package com.github.monzou.grinder.annotation.processor.foo;
 
 //CHECKSTYLE:OFF
+import java.util.List;
 import java.util.Map;
 
 import com.github.monzou.grinder.BeanProperty;
 import com.github.monzou.grinder.BeanPropertyAccessor;
 import com.github.monzou.grinder.annotation.processor.TradeBean;
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableMap.Builder;
 
@@ -212,6 +214,27 @@ public class TradeBeanFoo {
         propertyAccessorsBuilder.put("tradeNoAndStatus", tradeNoAndStatus);
         propertyAccessors = propertyAccessorsBuilder.build();
 
+    }
+
+    /**
+     * Get all properties
+     * 
+     * @return properties
+     */
+    public static List<BeanProperty<? super TradeBean, ?>> getProperties() {
+        return ImmutableList.copyOf(properties.values());
+    }
+    
+    /**
+     * Get all property accessors
+     * 
+     * @return property accessors
+     */
+    public static List<BeanPropertyAccessor<? super TradeBean, ?>> getPropertyAccessors() {
+        ImmutableList.Builder<BeanPropertyAccessor<? super TradeBean, ?>> builder = ImmutableList.builder();
+        builder.addAll(properties.values());
+        builder.addAll(propertyAccessors.values());
+        return builder.build();
     }
 
     /**

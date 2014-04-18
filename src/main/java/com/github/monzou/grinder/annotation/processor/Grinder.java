@@ -252,10 +252,9 @@ public class Grinder extends AbstractProcessor {
 
         String beanPackageName = packageNameOf(element);
         String beanClassName = simpleClassNameOf(element);
-        String pkg = optionOf(Options.PACKAGE, null);
-        if (pkg == null) {
-            pkg = beanPackageName;
-            String suffix = optionOf(Options.PACKAGE_SUFFIX, "meta");
+        String pkg = optionOf(Options.PACKAGE, beanPackageName);
+        String suffix = optionOf(Options.PACKAGE_SUFFIX, null);
+        if (suffix != null) {
             pkg = pkg == null || pkg.trim().length() == 0 ? suffix : String.format("%s.%s", pkg, suffix);
         }
         String className = toMetaClassName(beanClassName);

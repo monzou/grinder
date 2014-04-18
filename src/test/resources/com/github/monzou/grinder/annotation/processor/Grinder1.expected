@@ -1,4 +1,4 @@
-package com.github.monzou.grinder.annotation.processor.meta;
+package com.github.monzou.grinder.annotation.processor;
 
 //CHECKSTYLE:OFF
 import java.util.List;

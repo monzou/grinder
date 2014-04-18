@@ -23,7 +23,7 @@ public class GrinderTest extends AptinaTestCase {
         addProcessor(new Grinder());
         addCompilationUnit(TradeBean.class);
         compile();
-        assertEqualsGeneratedSourceWithResource("com/github/monzou/grinder/annotation/processor/Grinder1.expected", "com.github.monzou.grinder.annotation.processor.meta.TradeBeanMeta");
+        assertEqualsGeneratedSourceWithResource("com/github/monzou/grinder/annotation/processor/Grinder1.expected", "com.github.monzou.grinder.annotation.processor.TradeBeanMeta");
     }
 
     public void testGrinder2() throws Exception {

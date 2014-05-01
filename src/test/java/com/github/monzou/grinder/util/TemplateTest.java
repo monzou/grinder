@@ -1,4 +1,4 @@
-package com.github.monzou.grinder.annotation.processor.util;
+package com.github.monzou.grinder.util;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
@@ -9,7 +9,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.github.monzou.grinder.annotation.processor.util.Template;
+import com.github.monzou.grinder.util.Template;
 import com.google.common.base.Charsets;
 import com.google.common.collect.Lists;
 import com.google.common.io.Resources;

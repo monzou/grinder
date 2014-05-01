@@ -1,4 +1,4 @@
-package com.github.monzou.grinder.annotation.processor.exception;
+package com.github.monzou.grinder.exception;
 
 /**
  * PropertyAccessRuntimeException

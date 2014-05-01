@@ -1,4 +1,4 @@
-package com.github.monzou.grinder.annotation.processor.util;
+package com.github.monzou.grinder.util;
 
 import java.util.Collections;
 import java.util.List;

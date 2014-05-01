@@ -1,11 +1,11 @@
-package com.github.monzou.grinder.annotation.processor.util;
+package com.github.monzou.grinder.util;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
 
-import com.github.monzou.grinder.annotation.processor.util.Strings2;
+import com.github.monzou.grinder.util.Strings2;
 
 /**
  * Strings2Test

@@ -24,8 +24,8 @@ import javax.lang.model.util.ElementFilter;
 import javax.tools.Diagnostic.Kind;
 import javax.tools.JavaFileObject;
 
-import com.github.monzou.grinder.annotation.processor.util.Strings2;
-import com.github.monzou.grinder.annotation.processor.util.Template;
+import com.github.monzou.grinder.util.Strings2;
+import com.github.monzou.grinder.util.Template;
 import com.google.common.base.Charsets;
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;

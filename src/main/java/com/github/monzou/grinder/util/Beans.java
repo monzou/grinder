@@ -1,4 +1,4 @@
-package com.github.monzou.grinder.annotation.processor.util;
+package com.github.monzou.grinder.util;
 
 import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 
-import com.github.monzou.grinder.annotation.processor.exception.PropertyAccessRuntimeException;
+import com.github.monzou.grinder.exception.PropertyAccessRuntimeException;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
@@ -33,6 +33,13 @@ public final class Beans {
 
     private static final char PATH_SEPARATOR = '.';
 
+    /**
+     * Get the bean property 
+     * 
+     * @param bean bean
+     * @param propertyName propertyName
+     * @return property value
+     */
     public static Object getProperty(Object bean, String propertyName) {
 
         int p = propertyName.indexOf(PATH_SEPARATOR);
@@ -55,6 +62,13 @@ public final class Beans {
 
     }
 
+    /**
+     * Set the bean property
+     * 
+     * @param bean bean
+     * @param propertyName propertyName
+     * @param value value to set
+     */
     public static void setProperty(Object bean, String propertyName, Object value) {
 
         int p = propertyName.indexOf(PATH_SEPARATOR);

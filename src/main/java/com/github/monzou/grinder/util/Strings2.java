@@ -1,4 +1,4 @@
-package com.github.monzou.grinder.annotation.processor.util;
+package com.github.monzou.grinder.util;
 
 import com.google.common.base.Strings;
 

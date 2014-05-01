@@ -64,11 +64,13 @@ public class TradeBean implements Serializable {
         return readonly;
     }
 
-    public String getTradeNo() {
+    // not public
+    String getTradeNo() {
         return tradeNo;
     }
 
-    public void setTradeNo(String tradeNo) {
+    // not public
+    void setTradeNo(String tradeNo) {
         this.tradeNo = tradeNo;
     }
 
@@ -84,7 +86,8 @@ public class TradeBean implements Serializable {
         return version;
     }
 
-    public void setVersion(long version) {
+    // not public (write method)
+    void setVersion(long version) {
         this.version = version;
     }
 

@@ -1,0 +1,122 @@
+package {{packageName}};
+
+//CHECKSTYLE:OFF
+import java.util.List;
+import java.util.Map;
+
+import com.github.monzou.grinder.BeanProperty;
+import com.github.monzou.grinder.BeanPropertyAccessor;
+import {{bean.packageName}}.{{bean.className}};
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableMap.Builder;
+
+/**
+ * {{className}}
+ */
+public class {{className}} {
+{{#each properties}}
+    /** {{name}} */
+    public static final BeanProperty<{{bean.className}}, {{wrappedType}}> {{name}} = new BeanProperty<{{bean.className}}, {{wrappedType}}>() {
+
+        /** {@inheritDoc} */
+        @Override
+        public java.lang.String getName() {
+            return "{{name}}";
+        }
+
+        /** {@inheritDoc} */
+        @Override
+        public {{wrappedType}} apply({{bean.className}} bean) {
+            return bean.{{readMethodName}}();
+        }
+
+        /** {@inheritDoc} */
+        @Override
+        public {{bean.className}} apply({{bean.className}} bean, {{wrappedType}} {{name}}) {
+            bean.{{writeMethodName}}({{name}});
+            return bean;
+        }
+
+    };
+{{/each}}
+{{#each propertyAccessors}}
+    /** {{name}} */
+    public static final BeanPropertyAccessor<{{bean.className}}, {{wrappedType}}> {{name}} = new BeanPropertyAccessor<{{bean.className}}, {{wrappedType}}>() {
+
+        /** {@inheritDoc} */
+        @Override
+        public java.lang.String getName() {
+            return "{{name}}";
+        }
+
+        /** {@inheritDoc} */
+        @Override
+        public {{wrappedType}} apply({{bean.className}} bean) {
+            return bean.{{readMethodName}}();
+        }
+
+    };
+{{/each}}
+    private static final Map<String, BeanProperty<? super {{bean.className}}, ?>> properties;
+
+    private static final Map<String, BeanPropertyAccessor<? super {{bean.className}}, ?>> propertyAccessors;
+
+    static {
+
+        Builder<String, BeanProperty<? super {{bean.className}}, ?>> propertiesBuilder = ImmutableMap.builder();{{#each properties}}
+        propertiesBuilder.put("{{name}}", {{name}});{{/each}}
+        properties = propertiesBuilder.build();
+
+        Builder<String, BeanPropertyAccessor<? super {{bean.className}}, ?>> propertyAccessorsBuilder = ImmutableMap.builder();{{#each propertyAccessors}}
+        propertyAccessorsBuilder.put("{{name}}", {{name}});{{/each}}
+        propertyAccessors = propertyAccessorsBuilder.build();
+
+    }
+
+    /**
+     * Get all properties
+     * 
+     * @return properties
+     */
+    public static List<BeanProperty<? super {{bean.className}}, ?>> getProperties() {
+        return ImmutableList.copyOf(properties.values());
+    }
+
+    /**
+     * Get all property accessors
+     * 
+     * @return property accessors
+     */
+    public static List<BeanPropertyAccessor<? super {{bean.className}}, ?>> getPropertyAccessors() {
+        ImmutableList.Builder<BeanPropertyAccessor<? super {{bean.className}}, ?>> builder = ImmutableList.builder();
+        builder.addAll(properties.values());
+        builder.addAll(propertyAccessors.values());
+        return builder.build();
+    }
+
+    /**
+     * Get the bean property by name
+     * 
+     * @param propertyName property name
+     * @return {@link BeanProperty}
+     */
+    public static BeanProperty<? super {{bean.className}}, ?> getProperty(String propertyName) {
+        return properties.get(propertyName);
+    }
+
+    /**
+     * Get the bean property accessor by name
+     * 
+     * @param propertyName property name
+     * @return {@link BeanPropertyAccessor}
+     */
+    public static BeanPropertyAccessor<? super {{bean.className}}, ?> getPropertyAccessor(String propertyName) {
+        BeanPropertyAccessor<? super {{bean.className}},?> property = getProperty(propertyName);
+        if (property == null) {
+            property = propertyAccessors.get(propertyName);
+        }
+        return property;
+    }
+
+}

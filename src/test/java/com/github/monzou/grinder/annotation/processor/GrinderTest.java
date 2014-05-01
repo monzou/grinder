@@ -5,9 +5,6 @@ import java.nio.charset.Charset;
 import org.junit.Before;
 import org.seasar.aptina.unit.AptinaTestCase;
 
-import com.github.monzou.grinder.annotation.processor.Options;
-import com.github.monzou.grinder.annotation.processor.Grinder;
-
 /**
  * GrinderTest
  */
@@ -23,7 +20,7 @@ public class GrinderTest extends AptinaTestCase {
         addProcessor(new Grinder());
         addCompilationUnit(TradeBean.class);
         compile();
-        assertEqualsGeneratedSourceWithResource("com/github/monzou/grinder/annotation/processor/Grinder1.expected", "com.github.monzou.grinder.annotation.processor.meta.TradeBeanMeta");
+        assertEqualsGeneratedSourceWithResource("com/github/monzou/grinder/annotation/processor/Grinder1.expected", "com.github.monzou.grinder.annotation.processor.TradeBeanMeta");
     }
 
     public void testGrinder2() throws Exception {

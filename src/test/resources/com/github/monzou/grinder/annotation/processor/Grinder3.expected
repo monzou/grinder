@@ -16,25 +16,25 @@ import com.google.common.collect.ImmutableMap.Builder;
  */
 public class TradeBeanFoo {
 
-    /** tradeNo */
-    public static final BeanProperty<TradeBean, java.lang.String> tradeNo = new BeanProperty<TradeBean, java.lang.String>() {
+    /** foo */
+    public static final BeanProperty<TradeBean, java.lang.String> foo = new BeanProperty<TradeBean, java.lang.String>() {
 
         /** {@inheritDoc} */
         @Override
         public java.lang.String getName() {
-            return "tradeNo";
+            return "foo";
         }
 
         /** {@inheritDoc} */
         @Override
         public java.lang.String apply(TradeBean bean) {
-            return bean.getTradeNo();
+            return bean.getFoo();
         }
 
         /** {@inheritDoc} */
         @Override
-        public TradeBean apply(TradeBean bean, java.lang.String tradeNo) {
-            bean.setTradeNo(tradeNo);
+        public TradeBean apply(TradeBean bean, java.lang.String foo) {
+            bean.setFoo(foo);
             return bean;
         }
 
@@ -59,30 +59,6 @@ public class TradeBeanFoo {
         @Override
         public TradeBean apply(TradeBean bean, com.github.monzou.grinder.annotation.processor.TradeBean.Status status) {
             bean.setStatus(status);
-            return bean;
-        }
-
-    };
-
-    /** version */
-    public static final BeanProperty<TradeBean, java.lang.Long> version = new BeanProperty<TradeBean, java.lang.Long>() {
-
-        /** {@inheritDoc} */
-        @Override
-        public java.lang.String getName() {
-            return "version";
-        }
-
-        /** {@inheritDoc} */
-        @Override
-        public java.lang.Long apply(TradeBean bean) {
-            return bean.getVersion();
-        }
-
-        /** {@inheritDoc} */
-        @Override
-        public TradeBean apply(TradeBean bean, java.lang.Long version) {
-            bean.setVersion(version);
             return bean;
         }
 
@@ -136,22 +112,6 @@ public class TradeBeanFoo {
 
     };
 
-    /** readonly */
-    public static final BeanPropertyAccessor<TradeBean, java.lang.String> readonly = new BeanPropertyAccessor<TradeBean, java.lang.String>() {
-
-        /** {@inheritDoc} */
-        @Override
-        public java.lang.String getName() {
-            return "readonly";
-        }
-
-        /** {@inheritDoc} */
-        @Override
-        public java.lang.String apply(TradeBean bean) {
-            return bean.getReadonly();
-        }
-
-    };
 
     /** tradeNoAndStatus */
     public static final BeanPropertyAccessor<TradeBean, java.lang.String> tradeNoAndStatus = new BeanPropertyAccessor<TradeBean, java.lang.String>() {
@@ -170,26 +130,36 @@ public class TradeBeanFoo {
 
     };
 
-    /** foo */
-    public static final BeanProperty<TradeBean, java.lang.String> foo = new BeanProperty<TradeBean, java.lang.String>() {
+    /** readonly */
+    public static final BeanPropertyAccessor<TradeBean, java.lang.String> readonly = new BeanPropertyAccessor<TradeBean, java.lang.String>() {
 
         /** {@inheritDoc} */
         @Override
         public java.lang.String getName() {
-            return "foo";
+            return "readonly";
         }
 
         /** {@inheritDoc} */
         @Override
         public java.lang.String apply(TradeBean bean) {
-            return bean.getFoo();
+            return bean.getReadonly();
+        }
+
+    };
+
+    /** version */
+    public static final BeanPropertyAccessor<TradeBean, java.lang.Long> version = new BeanPropertyAccessor<TradeBean, java.lang.Long>() {
+
+        /** {@inheritDoc} */
+        @Override
+        public java.lang.String getName() {
+            return "version";
         }
 
         /** {@inheritDoc} */
         @Override
-        public TradeBean apply(TradeBean bean, java.lang.String foo) {
-            bean.setFoo(foo);
-            return bean;
+        public java.lang.Long apply(TradeBean bean) {
+            return bean.getVersion();
         }
 
     };
@@ -201,17 +171,16 @@ public class TradeBeanFoo {
     static {
 
         Builder<String, BeanProperty<? super TradeBean, ?>> propertiesBuilder = ImmutableMap.builder();
-        propertiesBuilder.put("tradeNo", tradeNo);
+        propertiesBuilder.put("foo", foo);
         propertiesBuilder.put("status", status);
-        propertiesBuilder.put("version", version);
         propertiesBuilder.put("deleted", deleted);
         propertiesBuilder.put("flag", flag);
-        propertiesBuilder.put("foo", foo);
         properties = propertiesBuilder.build();
 
         Builder<String, BeanPropertyAccessor<? super TradeBean, ?>> propertyAccessorsBuilder = ImmutableMap.builder();
-        propertyAccessorsBuilder.put("readonly", readonly);
         propertyAccessorsBuilder.put("tradeNoAndStatus", tradeNoAndStatus);
+        propertyAccessorsBuilder.put("readonly", readonly);
+        propertyAccessorsBuilder.put("version", version);
         propertyAccessors = propertyAccessorsBuilder.build();
 
     }

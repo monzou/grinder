@@ -1,0 +1,10 @@
+# Bean Information
+
+{{value1 | capitalize}} {{value2}} {{value1}}
+{{value1 | capitalize | uncapitalize}}
+{{value2}}
+
+# Children Information
+
+{{#each children}}  {{value1 | capitalize}} {{value2 | capitalize}} {{value1}}
+{{/each}}

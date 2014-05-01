@@ -1,4 +1,4 @@
-ext.guava = "com.google.guava:guava:16.0"
+ext.guava = "com.google.guava:guava:17.0"
 ext.junit = "junit:junit:4.11"
 ext.hamcrestAll = "org.hamcrest:hamcrest-all:1.3"
 ext.aptinaUnit = "org.seasar.aptina:aptina-unit:1.0.0"

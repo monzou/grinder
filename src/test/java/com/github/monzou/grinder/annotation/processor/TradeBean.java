@@ -2,6 +2,7 @@ package com.github.monzou.grinder.annotation.processor;
 
 //CHECKSTYLE:OFF
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 import com.github.monzou.grinder.annotation.Grind;
 
@@ -105,6 +106,22 @@ public class TradeBean implements Serializable {
 
     public void setFlag(Boolean flag) {
         this.flag = flag;
+    }
+
+    // inner-class
+    @Grind
+    public static class CashFlowBean {
+
+        private BigDecimal amount;
+
+        public BigDecimal getAmount() {
+            return amount;
+        }
+
+        public void setAmount(BigDecimal amount) {
+            this.amount = amount;
+        }
+
     }
 
 }

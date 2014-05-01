@@ -1,0 +1,104 @@
+package test.meta;
+
+//CHECKSTYLE:OFF
+import java.util.List;
+import java.util.Map;
+
+import com.github.monzou.grinder.BeanProperty;
+import com.github.monzou.grinder.BeanPropertyAccessor;
+import com.github.monzou.grinder.annotation.processor.TradeBean.CashFlowBean;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableMap.Builder;
+
+/**
+ * MCashFlowBean
+ */
+public class MCashFlowBean {
+
+    /** amount */
+    public static final BeanProperty<CashFlowBean, java.math.BigDecimal> amount = new BeanProperty<CashFlowBean, java.math.BigDecimal>() {
+
+        /** {@inheritDoc} */
+        @Override
+        public java.lang.String getName() {
+            return "amount";
+        }
+
+        /** {@inheritDoc} */
+        @Override
+        public java.math.BigDecimal apply(CashFlowBean bean) {
+            return bean.getAmount();
+        }
+
+        /** {@inheritDoc} */
+        @Override
+        public CashFlowBean apply(CashFlowBean bean, java.math.BigDecimal amount) {
+            bean.setAmount(amount);
+            return bean;
+        }
+
+    };
+
+
+    private static final Map<String, BeanProperty<? super CashFlowBean, ?>> properties;
+
+    private static final Map<String, BeanPropertyAccessor<? super CashFlowBean, ?>> propertyAccessors;
+
+    static {
+
+        Builder<String, BeanProperty<? super CashFlowBean, ?>> propertiesBuilder = ImmutableMap.builder();
+        propertiesBuilder.put("amount", amount);
+        properties = propertiesBuilder.build();
+
+        Builder<String, BeanPropertyAccessor<? super CashFlowBean, ?>> propertyAccessorsBuilder = ImmutableMap.builder();
+        propertyAccessors = propertyAccessorsBuilder.build();
+
+    }
+
+    /**
+     * Get all properties
+     * 
+     * @return properties
+     */
+    public static List<BeanProperty<? super CashFlowBean, ?>> getProperties() {
+        return ImmutableList.copyOf(properties.values());
+    }
+
+    /**
+     * Get all property accessors
+     * 
+     * @return property accessors
+     */
+    public static List<BeanPropertyAccessor<? super CashFlowBean, ?>> getPropertyAccessors() {
+        ImmutableList.Builder<BeanPropertyAccessor<? super CashFlowBean, ?>> builder = ImmutableList.builder();
+        builder.addAll(properties.values());
+        builder.addAll(propertyAccessors.values());
+        return builder.build();
+    }
+
+    /**
+     * Get the bean property by name
+     * 
+     * @param propertyName property name
+     * @return {@link BeanProperty}
+     */
+    public static BeanProperty<? super CashFlowBean, ?> getProperty(String propertyName) {
+        return properties.get(propertyName);
+    }
+
+    /**
+     * Get the bean property accessor by name
+     * 
+     * @param propertyName property name
+     * @return {@link BeanPropertyAccessor}
+     */
+    public static BeanPropertyAccessor<? super CashFlowBean, ?> getPropertyAccessor(String propertyName) {
+        BeanPropertyAccessor<? super CashFlowBean,?> property = getProperty(propertyName);
+        if (property == null) {
+            property = propertyAccessors.get(propertyName);
+        }
+        return property;
+    }
+
+}

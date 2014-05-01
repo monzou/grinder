@@ -231,6 +231,10 @@ public class Grinder extends AbstractProcessor {
         BeanMetaData(TypeElement element) {
             this.element = element;
         }
+        
+        public String getFullQualifiedName() {
+            return element.getQualifiedName().toString();
+        }
 
         public String getPackageName() {
             return processingEnv.getElementUtils().getPackageOf(element).getQualifiedName().toString();

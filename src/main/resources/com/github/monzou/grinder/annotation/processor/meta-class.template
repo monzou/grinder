@@ -6,7 +6,7 @@ import java.util.Map;
 
 import com.github.monzou.grinder.BeanProperty;
 import com.github.monzou.grinder.BeanPropertyAccessor;
-import {{bean.packageName}}.{{bean.className}};
+import {{bean.fullQualifiedName}};
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableMap.Builder;

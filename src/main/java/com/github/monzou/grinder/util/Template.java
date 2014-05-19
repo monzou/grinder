@@ -21,7 +21,7 @@ public class Template {
 
     private static final Pattern EXPRESSION_PATTERN = Pattern.compile("\\{\\{(.*?)\\}\\}");
 
-    public static final Pattern EACH_EXPRESSION_PATTERN = Pattern.compile("\\{\\{#each (.*?)\\}\\}(.*?)\\{\\{/each\\}\\}", Pattern.DOTALL);
+    private static final Pattern EACH_EXPRESSION_PATTERN = Pattern.compile("\\{\\{#each (.*?)\\}\\}(.*?)\\{\\{/each\\}\\}", Pattern.DOTALL);
 
     private static final String FUNCTION_SEPARATOR = "|";
 

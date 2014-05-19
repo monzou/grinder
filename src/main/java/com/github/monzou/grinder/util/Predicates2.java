@@ -11,6 +11,7 @@ public final class Predicates2 {
     /**
      * Converts {@link Function} to {@link Predicate}
      * 
+     * @param <T> the type of input
      * @param function {@link Function}
      * @return {@link Predicate}
      */

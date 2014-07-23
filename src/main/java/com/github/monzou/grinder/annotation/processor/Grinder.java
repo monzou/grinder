@@ -112,7 +112,7 @@ public class Grinder extends AbstractProcessor {
             if (modifiers.contains(Modifier.PUBLIC) && e.getParameters().isEmpty()) {
                 PropertyMetaData metaData = new PropertyMetaData(bean, e, false);
                 String methodName = metaData.getMethodName();
-                if (methodName.startsWith("get") || methodName.startsWith("is")) {
+                if (metaData.isGetter()) {
                     String propertyName = metaData.getName();
                     if (properties.containsKey(propertyName)) {
                         continue;
@@ -131,7 +131,7 @@ public class Grinder extends AbstractProcessor {
             if (modifiers.contains(Modifier.PUBLIC) && e.getParameters().size() == 1) {
                 PropertyMetaData metaData = new PropertyMetaData(bean, e, true);
                 String methodName = metaData.getMethodName();
-                if (methodName.startsWith("set")) {
+                if (metaData.isSetter()) {
                     String propertyName = metaData.getName();
                     if (properties.containsKey(propertyName)) {
                         properties.put(propertyName, metaData); // replace if exists
@@ -288,6 +288,14 @@ public class Grinder extends AbstractProcessor {
 
         public String getWriteMethodName() {
             return String.format("set%s", Strings2.capitalize(getName()));
+        }
+
+        public boolean isGetter() {
+            return getMethodName().startsWith("get") || getMethodName().startsWith("is");
+        }
+
+        public boolean isSetter() {
+            return getMethodName().startsWith("set");
         }
 
         public String getMethodName() {

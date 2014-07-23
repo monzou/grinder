@@ -3,6 +3,7 @@
 .metadata/
 .settings/
 .tmp/
+.idea/
 bin/
 build/
 libraries/
@@ -10,4 +11,5 @@ libraries/
 .metadata
 .classpath
 .project
+*.iml
 RemoteSystemsTempFiles
